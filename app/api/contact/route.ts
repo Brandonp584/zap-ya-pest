@@ -1,6 +1,8 @@
-import { Postpone } from "next/dist/server/app-render/dynamic-rendering";
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
-import { json } from "stream/consumers";
+import { prisma } from "@/app/lib/prisma";
+
 
 export async function POST(req: Request) {
     try {
@@ -14,21 +16,25 @@ export async function POST(req: Request) {
             );
         }
 
-        console.log("New contact lead:", {
-            name,
-            email,
-            phone,
-            message,
+        await prisma.lead.create({
+            data: {
+                name,
+                email,
+                phone: phone ?? null,
+                message,
+            },
         });
 
         return NextResponse.json(
             { success: true, message: "Quote request received" },
             { status: 200 }
         );
-    } catch {
+    } catch (error) {
+        console.error("Contact API Error:", error);
+
         return NextResponse.json(
-            { error: "invaild request" },
-            { status: 500}
+            { error: "Internal Server Error" },
+            { status: 500 }
         );
     }
 }
