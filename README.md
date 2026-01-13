@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🐜 Zap Ya Pest — Pest Control Website & Lead System
 
-## Getting Started
+A modern, production-ready pest control business website built with Next.js (App Router), TypeScript, and Tailwind CSS.
 
-First, run the development server:
+This project was designed as both:
 
-```bash
+A real-world business website for a tradie-style service company
+
+A portfolio-grade case study demonstrating full-stack, scalable architecture
+
+🚀 Live Features
+
+⚡ Fast, SEO-optimized Next.js App Router setup
+
+🎨 Tailwind CSS for rapid, professional UI styling
+
+🧭 Shared layout with persistent navigation
+
+📄 Multi-page routing (/services, /about, /contact)
+
+🧩 Scalable folder architecture (agency-level standard)
+
+📱 Mobile-first responsive design
+
+🧱 Tech Stack
+Layer	Technology
+Framework	Next.js 16 (App Router)
+Language	TypeScript
+Styling	Tailwind CSS
+Linting	ESLint
+Tooling	Turbopack
+Runtime	Node.js 20 LTS
+📁 Project Structure
+zap-ya-pest/
+├── app/
+│   ├── page.tsx          # Home page
+│   ├── layout.tsx        # Global layout (nav, styles)
+│   ├── globals.css       # Global styles
+│   ├── services/         # Services page
+│   ├── about/            # About page
+│   └── contact/          # Contact page
+├── public/               # Static assets
+├── eslint.config.mjs
+├── next.config.ts
+├── tsconfig.json
+└── package.json
+
+This structure follows Next.js App Router best practices and is designed to scale into a full-stack application.
+
+🧠 Architecture & Lead Flow (Planned)
+
+Phase 1 (Current)
+
+Static marketing pages
+
+Brand positioning & SEO foundation
+
+Phase 2 (Next)
+
+Contact form with validation
+
+API route for lead capture
+
+Database integration (PostgreSQL or Supabase)
+
+Phase 3 (Production)
+
+CRM-style lead dashboard
+
+Email + SMS notifications
+
+Deployment with CI/CD
+
+📊 Case Study Highlights
+
+Problem
+
+Small service businesses often rely on slow, template-based websites that don’t convert.
+
+Solution
+
+A modern, fast-loading, mobile-first website designed for local service conversion.
+
+Outcome
+
+Clean UX
+
+Faster load times
+
+Scalable backend-ready architecture
+
+🧪 Local Development
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🧩 Portfolio Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is intentionally structured to:
 
-## Learn More
+Be showcased as a real business case study
 
-To learn more about Next.js, take a look at the following resources:
+Demonstrate professional folder architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Scale into a full-stack SaaS-style application
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+👤 Author
 
-## Deploy on Vercel
+Brandon
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Full-Stack Web Developer
+Specialising in modern React, Next.js, and business-focused web solutions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📜 License
+
+This project is licensed for portfolio and commercial use.
