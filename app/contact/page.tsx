@@ -7,6 +7,7 @@ type ContactForm = {
   email: string;
   phone: string;
   message: string;
+  company: string;
 };
 
 export default function ContactPage() {
@@ -15,6 +16,7 @@ export default function ContactPage() {
     email: "",
     phone: "",
     message: "",
+    company: "",
   });
 
   const [error, setError] = useState<string  | null>(null);
@@ -62,6 +64,7 @@ export default function ContactPage() {
         email: "",
         phone: "",
         message: "",
+        company: "",
       });
     } catch (err) {
       setError(
@@ -149,6 +152,18 @@ export default function ContactPage() {
             value={form.message}
             onChange={handleChange}
             className="w-full border rounded-md p-3"
+          />
+        </div>
+
+        <div style={{ display: "none" }}>
+          <label>
+            Company
+          </label>
+          <input
+            name="company"
+            value={form.company}
+            onChange={handleChange}
+            autoComplete="off"
           />
         </div>
 
