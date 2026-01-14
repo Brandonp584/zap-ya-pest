@@ -17,26 +17,28 @@ export default function ContactPage() {
     message: "",
   });
 
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
+  const [error, setError] = useState<string  | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+      setError(null);
+      setSuccess(false);
 
     if (!form.name || !form.email || !form.message) {
       setError("Please fill in all required fields.");
       return;
     }
 
-    setError("");
-    setSuccess("");
     setLoading(true);
 
     try {
@@ -54,15 +56,19 @@ export default function ContactPage() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      setSuccess("Thanks! We'll be in touch shortly.");
+      setSuccess(true);
       setForm({
         name: "",
         email: "",
         phone: "",
         message: "",
       });
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "An unexpected error occurred: Please try again later."
+      );
     } finally {
       setLoading(false);
     }
@@ -78,21 +84,25 @@ export default function ContactPage() {
         Fill out the form below and our team will get back to you shortly.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
         {error && (
           <p className="text-red-600 text-center font-medium">{error}</p>
         )}
 
         {success && (
           <p className="text-green-600 text-center font-medium">
-            {success}
+            ✅ Thanks! We'll be in touch shortly.
           </p>
         )}
 
         <div>
-          <label className="block mb-2 font-medium">Name</label>
+          <label htmlFor="name" className="block mb-2 font-medium">
+            Name *
+          </label>
           <input
+            id="name"
             name="name"
+            required
             value={form.name}
             onChange={handleChange}
             className="w-full border rounded-md p-3"
@@ -100,10 +110,14 @@ export default function ContactPage() {
         </div>
 
         <div>
-          <label className="block mb-2 font-medium">Email</label>
+          <label htmlFor="email" className="block mb-2 font-medium">
+            Email *
+          </label>
           <input
+            id="email"
             type="email"
             name="email"
+            required
             value={form.email}
             onChange={handleChange}
             className="w-full border rounded-md p-3"
@@ -111,8 +125,11 @@ export default function ContactPage() {
         </div>
 
         <div>
-          <label className="block mb-2 font-medium">Phone</label>
+          <label htmlFor="phone" className="block mb-2 font-medium">
+            Phone *
+          </label>
           <input
+            id="phone"
             name="phone"
             value={form.phone}
             onChange={handleChange}
@@ -121,10 +138,14 @@ export default function ContactPage() {
         </div>
 
         <div>
-          <label className="block mb-2 font-medium">Message</label>
+          <label htmlFor="message" className="block mb-2 font-medium">
+            Message *
+          </label>
           <textarea
+            id="message"
             name="message"
             rows={5}
+            required
             value={form.message}
             onChange={handleChange}
             className="w-full border rounded-md p-3"
