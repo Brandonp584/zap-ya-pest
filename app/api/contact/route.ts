@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
         if (!name || !email || !message) {
             return NextResponse.json(
-                { error: "missing required fields" },
+                { error: "Missing required fields" },
                 { status: 400 }
             );
         }
@@ -23,10 +23,11 @@ export async function POST(req: Request) {
 
         await prisma.lead.create({
             data: {
-                name,
-                email,
-                phone,
-                message,
+                name: name.trim(),
+                email: email.trim().toLowerCase(),
+                phone: phone?.trim() || null,
+                message: message.trim(),
+                source: "website",
             },
         });
 
