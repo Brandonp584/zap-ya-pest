@@ -3,9 +3,10 @@ import { prisma } from "@/app/lib/prisma";
 
 export async function PATCH(
     req: Request,
-    { params }: {params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await context.params;
         const { status } = await req.json();
 
         if (!["NEW", "CONTACTED", "CLOSED"].includes(status)) {
@@ -16,7 +17,7 @@ export async function PATCH(
         }
 
         await prisma.lead.update({
-            where: { id: params.id },
+            where: { id },
             data: { status },
         });
 

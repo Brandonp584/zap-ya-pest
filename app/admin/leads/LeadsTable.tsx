@@ -9,6 +9,7 @@ type Lead = {
     phone: string | null;
     message: string;
     source: string;
+    status: "NEW" | "CONTACTED" | "CLOSED";
     createdAt: Date;
 };
 
@@ -31,6 +32,26 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         if (res.ok) {
             // remove from UI without reload
             setRows((prev) => prev.filter((lead) => lead.id !== id));
+        }
+    }
+
+    /* ---------------- STATUS UPDATE ---------------- */
+    async function handleStatusChange(
+        id: string,
+        status: Lead["status"]
+    ) {
+        const res = await fetch(`/api/admin/leads/${id}/status`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status }),
+        });
+
+        if (res.ok) {
+            setRows((prev) =>
+                prev.map((lead) =>
+                    lead.id === id ? { ...lead, status } : lead
+                )
+            );
         }
     }
 
@@ -106,8 +127,10 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                             <th className="border p-3 text-left">Phone</th>
                             <th className="border p-3 text-left">Message</th>
                             <th className="border p-3 text-left">Source</th>
+                            <th className="border p-3 text-left">Status</th>
                             <th className="border p-3 text-left">Date</th>
                             <th className="border p-3 text-left">Actions</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -115,13 +138,35 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                             <tr key={lead.id} className="hover:bg-gray-50">
                                 <td className="border p-3">{lead.name}</td>
                                 <td className="border p-3">{lead.email}</td>
-                                <td className="border p-3">{lead.phone ?? "-"}</td>
+                                <td className="border p-3">
+                                    {lead.phone ?? "-"}
+                                </td>
                                 <td className="border p-3 max-w-md truncate">
                                     {lead.message}
                                 </td>
                                 <td className="border p-3">{lead.source}</td>
+
                                 <td className="border p-3">
-                                    {new Date(lead.createdAt).toLocaleString()}
+                                    <select
+                                        value={lead.status}
+                                        onChange={(e) =>
+                                            handleStatusChange(
+                                                lead.id,
+                                                e.target.value as Lead["status"]
+                                            )
+                                        }
+                                        className="border rounded px-2 py-1 text-sm bg-white"
+                                    >
+                                        <option value="NEW">New</option>
+                                        <option value="CONTACTED">Contacted</option>
+                                        <option value="CLOSED">Closed</option>
+                                    </select>
+                                </td>
+                                
+                                <td className="border p-3">
+                                    {new Date(
+                                        lead.createdAt
+                                    ).toLocaleString()}
                                 </td>
                                 <td className="border p-3">
                                     <button
@@ -137,7 +182,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                         {filteredRows.length === 0 && (
                             <tr>
                                 <td
-                                    colSpan={7}
+                                    colSpan={8}
                                     className="text-center p-6 text-gray-500"
                                 >
                                     No leads found
