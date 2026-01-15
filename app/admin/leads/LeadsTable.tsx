@@ -16,6 +16,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     const [rows, setRows] = useState<Lead[]>(leads);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [search, setSearch] = useState("");
+    const [sourceFilter, setSourceFilter] = useState("all");
 
     async function handleDelete(id: string) {
         const confirmed = confirm("Are you sure you want to delete this lead?");
@@ -38,29 +39,52 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         setDeletingId(null);
     }
 
+    const sources = Array.from(
+        new Set(leads.map((lead) => lead.source))
+    );
+
     const filteredRows = rows.filter((lead) => {
         const q = search.toLowerCase();
 
-        return (
+        const matchesSearch =
             lead.name.toLowerCase().includes(q) ||
             lead.email.toLowerCase().includes(q) ||
             lead.phone?.toLowerCase().includes(q) ||
             lead.message.toLowerCase().includes(q) ||
-            lead.source.toLowerCase().includes(q)
-        );
+            lead.source.toLowerCase().includes(q);
+
+        const matchesSource =
+            sourceFilter === "all" || lead.source === sourceFilter;
+
+        return matchesSearch && matchesSource;
     });
 
     return (
         <>
-            {/* Search Input */}
-            <div className="mb-4">
+            {/* Controls */}
+            <div className="flex flex-wrap gap-4 mb-4">
+                {/* 🔍 Search */}
                 <input
                     type="text"
-                    placeholder="Search Leads..."
+                    placeholder="Search leads..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full max-w-sm border px-3 py-2 rounded text-sm focus:outline-none focus:ring"
+                    className="border px-3 py-2 rounded text-sm w-full max-w-sm"
                 />
+
+                {/* 🏷 Source filter */}
+                <select
+                    value={sourceFilter}
+                    onChange={(e) => setSourceFilter(e.target.value)}
+                    className="border px-3 py-2 rounded text-sm"
+                >
+                    <option value="all">All sources</option>
+                    {sources.map((source) => (
+                        <option key={source} value={source}>
+                            {source}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             {filteredRows.length === 0 ? (
