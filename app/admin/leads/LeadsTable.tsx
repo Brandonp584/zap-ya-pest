@@ -13,89 +13,94 @@ type Lead = {
 };
 
 export default function LeadsTable({ leads }: { leads: Lead[] }) {
+    /* ---------------- STATE ---------------- */
     const [rows, setRows] = useState<Lead[]>(leads);
-    const [deletingId, setDeletingId] = useState<string | null>(null);
     const [search, setSearch] = useState("");
     const [sourceFilter, setSourceFilter] = useState("all");
+    const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
+    /* ---------------- DELETE ---------------- */
     async function handleDelete(id: string) {
         const confirmed = confirm("Are you sure you want to delete this lead?");
         if (!confirmed) return;
-
-        setDeletingId(id);
 
         const res = await fetch(`/api/admin/leads/${id}`, {
             method: "DELETE",
         });
 
-        if (!res.ok) {
-            alert("Failed to delete lead");
-            setDeletingId(null);
-            return;
+        if (res.ok) {
+            // remove from UI without reload
+            setRows((prev) => prev.filter((lead) => lead.id !== id));
         }
-
-        // ✅ Remove row instantly (no reload)
-        setRows((prev) => prev.filter((lead) => lead.id !== id));
-        setDeletingId(null);
     }
 
-    const sources = Array.from(
-        new Set(leads.map((lead) => lead.source))
-    );
+    /* ---------------- FILTER + SORT ---------------- */
+    const filteredRows = rows
+        .filter((lead) => {
+            const q = search.toLowerCase();
 
-    const filteredRows = rows.filter((lead) => {
-        const q = search.toLowerCase();
+            const matchesSearch =
+                lead.name.toLowerCase().includes(q) ||
+                lead.email.toLowerCase().includes(q) ||
+                lead.phone?.toLowerCase().includes(q) ||
+                lead.message.toLowerCase().includes(q) ||
+                lead.source.toLowerCase().includes(q);
 
-        const matchesSearch =
-            lead.name.toLowerCase().includes(q) ||
-            lead.email.toLowerCase().includes(q) ||
-            lead.phone?.toLowerCase().includes(q) ||
-            lead.message.toLowerCase().includes(q) ||
-            lead.source.toLowerCase().includes(q);
+            const matchesSource =
+                sourceFilter === "all" || lead.source === sourceFilter;
 
-        const matchesSource =
-            sourceFilter === "all" || lead.source === sourceFilter;
+            return matchesSearch && matchesSource;
+        })
+        .sort((a, b) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
 
-        return matchesSearch && matchesSource;
-    });
+            return sortOrder === "newest"
+                ? dateB - dateA
+                : dateA - dateB;
+        });
 
+    /* ---------------- UI ---------------- */
     return (
         <>
-            {/* Controls */}
-            <div className="flex flex-wrap gap-4 mb-4">
-                {/* 🔍 Search */}
+            {/* CONTROLS */}
+            <div className="flex flex-wrap gap-4 mb-6">
                 <input
                     type="text"
                     placeholder="Search leads..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border px-3 py-2 rounded text-sm w-full max-w-sm"
+                    className="border px-3 py-2 rounded w-64"
                 />
 
-                {/* 🏷 Source filter */}
                 <select
                     value={sourceFilter}
                     onChange={(e) => setSourceFilter(e.target.value)}
-                    className="border px-3 py-2 rounded text-sm"
+                    className="border px-3 py-2 rounded"
                 >
-                    <option value="all">All sources</option>
-                    {sources.map((source) => (
-                        <option key={source} value={source}>
-                            {source}
-                        </option>
-                    ))}
+                    <option value="all">All Sources</option>
+                    <option value="website">Website</option>
+                    <option value="google">Google</option>
+                    <option value="facebook">Facebook</option>
+                </select>
+
+                <select
+                    value={sortOrder}
+                    onChange={(e) =>
+                        setSortOrder(e.target.value as "newest" | "oldest")
+                    }
+                    className="border px-3 py-2 rounded"
+                >
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
                 </select>
             </div>
 
-            {filteredRows.length === 0 ? (
-                <p className="text-gray-500 text-sm">
-                    No Leads Match Your Search
-                </p>
-            ) : (
-                <div className="overflow-x-auto">
-                        <table className="w-full border-collapse border">
-                            <thead className="bg-gray-200">
-                                <tr>
+            {/* TABLE */}
+            <div className="overflow-x-auto">
+                <table className="w-full border-collapse border">
+                    <thead className="bg-gray-200">
+                        <tr>
                             <th className="border p-3 text-left">Name</th>
                             <th className="border p-3 text-left">Email</th>
                             <th className="border p-3 text-left">Phone</th>
@@ -121,20 +126,27 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                                 <td className="border p-3">
                                     <button
                                         onClick={() => handleDelete(lead.id)}
-                                        disabled={deletingId === lead.id}
-                                        className="text-red-600 hover:underline text-sm disabled:opacity-50"
-                                        >
-                                            {deletingId === lead.id 
-                                                ? "Deleting…" 
-                                                : "Delete"}
+                                        className="text-red-600 hover:underline text-sm"
+                                    >
+                                        Delete
                                     </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                                </td>
+                            </tr>
+                        ))}
+
+                        {filteredRows.length === 0 && (
+                            <tr>
+                                <td
+                                    colSpan={7}
+                                    className="text-center p-6 text-gray-500"
+                                >
+                                    No leads found
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 }
