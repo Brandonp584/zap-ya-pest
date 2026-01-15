@@ -8,6 +8,7 @@ export default function AdminLoginPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     
@@ -59,15 +60,24 @@ export default function AdminLoginPage() {
                     className="w-full border p-3 rounded mb-4"
                     required
                 />
+                <div className="relative mb-4">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Admin Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full border p-3 rounded mb-4"
+                        required
+                    />
 
-                <input                
-                    type="password"
-                    placeholder="Admin Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border p-3 rounded mb-4"
-                    required
-                />
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black"
+                    >
+                        {showPassword ? "🙈" : "👁️"}
+                    </button>
+                </div>
 
                 <button
                     className="w-full bg-black text-white py-3 rounded hover:opacity-90 disabled:opacity-50"
