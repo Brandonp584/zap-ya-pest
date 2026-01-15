@@ -14,5 +14,6 @@ model Lead {
   phone     String?
   message   String
   source    String   @default("website")
+  status    String   @default("NEW")
   createdAt DateTime @default(now())
 }
