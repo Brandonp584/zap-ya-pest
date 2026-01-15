@@ -19,6 +19,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     const [search, setSearch] = useState("");
     const [sourceFilter, setSourceFilter] = useState("all");
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+    const [selected, setSelected] = useState<string[]>([]);
 
     /* ---------------- DELETE ---------------- */
     async function handleDelete(id: string) {
@@ -53,6 +54,63 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 )
             );
         }
+    }
+
+    /* ---------------- BULK HELPERS (NEW) ---------------- */
+    function toggleSelect(id: string) {
+        setSelected((prev) =>
+            prev.includes(id)
+                ? prev.filter((x) => x !== id)
+                : [...prev, id]
+        );
+    }
+
+    function toggleSelectAll() {
+        if (selected.length === filteredRows.length) {
+            setSelected([]);
+        } else {
+            setSelected(filteredRows.map((lead) => lead.id));
+        }
+    }
+
+    async function handleBulkDelete() {
+        const confirmed = confirm(
+            `Delete ${selected.length} selected leads?`
+        );
+        if (!confirmed) return;
+
+        await Promise.all(
+            selected.map((id) =>
+                fetch(`/api/admin/leads/${id}`, { method: "DELETE" })
+            )
+        );
+
+        setRows((prev) =>
+            prev.filter((lead) => !selected.includes(lead.id))
+        );
+        setSelected([]);
+    }
+
+    async function handleBulkStatus(status: Lead["status"]) {
+        await Promise.all(
+            selected.map((id) =>
+                fetch(`/api/admin/leads/${id}/status`, {
+                    method: "PATCH",
+                    headers: { "Content-type": "application/json"},
+                    body: JSON.stringify({ status }),
+                })
+            )
+        );
+
+        setRows((prev) =>
+            prev.map((lead) =>
+                selected.includes(lead.id)
+                    ? { ...lead, status }
+                    : lead
+            )
+        );
+
+        setSelected([]);
     }
 
     /* ---------------- FILTER + SORT ---------------- */
@@ -117,11 +175,55 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                 </select>
             </div>
 
+            {/* 🔹 BULK ACTION BAR */}
+            {selected.length > 0 && (
+                <div className="flex items-center gap-4 mb-4 p-3 bg-gray-100 border rounded">
+                    <span className="text-sm font-medium">
+                        {selected.length} selected
+                    </span>
+
+                    <button
+                        onClick={handleBulkDelete}
+                        className="text-red-600 text-sm hover:underline"
+                    >
+                        Delete selected
+                    </button>
+
+                    <select 
+                        onChange={(e) =>
+                            handleBulkStatus(
+                                e.target.value as Lead["status"]
+                            )
+                        }
+                        className="border rounded px-2 py-1 text-sm bg-white"
+                        defaultValue=""
+                    >
+                        <option value="" disabled>
+                            Change status...
+                        </option>
+                        <option value="NEW">New</option>
+                        <option value="CONTACTED">Contacted</option>
+                        <option value="CLOSED">Closed</option>
+                    </select>
+                </div>
+            )}
+
             {/* TABLE */}
             <div className="overflow-x-auto">
                 <table className="w-full border-collapse border">
                     <thead className="bg-gray-200">
                         <tr>
+                            <th className="border p-3">
+                                <input
+                                    type="checkbox"
+                                    checked={
+                                        filteredRows.length > 0 &&
+                                        selected.length ===
+                                            filteredRows.length
+                                    }
+                                    onChange={toggleSelectAll}
+                                />
+                            </th>
                             <th className="border p-3 text-left">Name</th>
                             <th className="border p-3 text-left">Email</th>
                             <th className="border p-3 text-left">Phone</th>
@@ -136,6 +238,16 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                     <tbody>
                         {filteredRows.map((lead) => (
                             <tr key={lead.id} className="hover:bg-gray-50">
+                                <td className="border p-3">
+                                    <input
+                                        type="checkbox"
+                                        checked={selected.includes(lead.id)}
+                                        onChange={() =>
+                                            toggleSelect(lead.id)
+                                        }
+                                    />
+                                </td>
+
                                 <td className="border p-3">{lead.name}</td>
                                 <td className="border p-3">{lead.email}</td>
                                 <td className="border p-3">
@@ -162,12 +274,13 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                                         <option value="CLOSED">Closed</option>
                                     </select>
                                 </td>
-                                
+
                                 <td className="border p-3">
                                     {new Date(
                                         lead.createdAt
                                     ).toLocaleString()}
                                 </td>
+
                                 <td className="border p-3">
                                     <button
                                         onClick={() => handleDelete(lead.id)}
@@ -182,7 +295,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                         {filteredRows.length === 0 && (
                             <tr>
                                 <td
-                                    colSpan={8}
+                                    colSpan={9}
                                     className="text-center p-6 text-gray-500"
                                 >
                                     No leads found

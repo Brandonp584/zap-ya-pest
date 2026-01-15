@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 export default async function AdminLeadsPage() {
     const leads = await prisma.lead.findMany({
         orderBy: { createdAt: "desc" },
-    });
+    }) as Array<{ id: string; status: "NEW" | "CONTACTED" | "CLOSED"; name: string; email: string; phone: string | null; message: string; source: string; createdAt: Date; }>;
 
     return (
         <main className="min-h-screen px-6 py-20 max-w-6xl max-auto">
