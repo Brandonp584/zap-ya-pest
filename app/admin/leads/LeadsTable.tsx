@@ -21,6 +21,10 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
     const [selected, setSelected] = useState<string[]>([]);
 
+    /* --------------- PAGINATION STATE ------------- */
+    const [page, setPage] = useState(1);
+    const pageSize = 10;
+
     /* ---------------- DELETE ---------------- */
     async function handleDelete(id: string) {
         const confirmed = confirm("Are you sure you want to delete this lead?");
@@ -33,6 +37,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         if (res.ok) {
             // remove from UI without reload
             setRows((prev) => prev.filter((lead) => lead.id !== id));
+            setSelected((prev) => prev.filter((x) => x !== id));
         }
     }
 
@@ -56,7 +61,38 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         }
     }
 
-    /* ---------------- BULK HELPERS (NEW) ---------------- */
+    /* ---------------- FILTER + SORT ---------------- */
+    const filteredRows = rows
+        .filter((lead) => {
+            const q = search.toLowerCase();
+
+            const matchesSearch =
+                lead.name.toLowerCase().includes(q) ||
+                lead.email.toLowerCase().includes(q) ||
+                lead.phone?.toLowerCase().includes(q) ||
+                lead.message.toLowerCase().includes(q) ||
+                lead.source.toLowerCase().includes(q);
+
+            const matchesSource =
+                sourceFilter === "all" || lead.source === sourceFilter;
+
+            return matchesSearch && matchesSource;
+        })
+        .sort((a, b) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+
+            return sortOrder === "newest"
+                ? dateB - dateA
+                : dateA - dateB;
+        });
+
+        /* ---------------- PAGINATION LOGIC ---------------- */
+        const totalPages = Math.ceil(filteredRows.length / pageSize);
+        const start = (page - 1) * pageSize;
+        const paginatedRows = filteredRows.slice(start, start + pageSize);
+
+        /* ---------------- BULK HELPERS ---------------- */
     function toggleSelect(id: string) {
         setSelected((prev) =>
             prev.includes(id)
@@ -66,10 +102,18 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
     }
 
     function toggleSelectAll() {
-        if (selected.length === filteredRows.length) {
-            setSelected([]);
+        const pageIds = paginatedRows.map((lead) => lead.id);
+
+        const allSelected = pageIds.every((id) =>
+            selected.includes(id)
+        );
+
+        if (allSelected) {
+            setSelected((prev) =>
+                prev.filter((id) => !pageIds.includes(id))
+            );
         } else {
-            setSelected(filteredRows.map((lead) => lead.id));
+            setSelected((prev) => [...new Set([...prev, ...pageIds])]);
         }
     }
 
@@ -113,31 +157,6 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         setSelected([]);
     }
 
-    /* ---------------- FILTER + SORT ---------------- */
-    const filteredRows = rows
-        .filter((lead) => {
-            const q = search.toLowerCase();
-
-            const matchesSearch =
-                lead.name.toLowerCase().includes(q) ||
-                lead.email.toLowerCase().includes(q) ||
-                lead.phone?.toLowerCase().includes(q) ||
-                lead.message.toLowerCase().includes(q) ||
-                lead.source.toLowerCase().includes(q);
-
-            const matchesSource =
-                sourceFilter === "all" || lead.source === sourceFilter;
-
-            return matchesSearch && matchesSource;
-        })
-        .sort((a, b) => {
-            const dateA = new Date(a.createdAt).getTime();
-            const dateB = new Date(b.createdAt).getTime();
-
-            return sortOrder === "newest"
-                ? dateB - dateA
-                : dateA - dateB;
-        });
 
     /* ---------------- UI ---------------- */
     return (
@@ -148,13 +167,19 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                     type="text"
                     placeholder="Search leads..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {
+                        setSearch(e.target.value);
+                        setPage(1);
+                    }}
                     className="border px-3 py-2 rounded w-64"
                 />
 
                 <select
                     value={sourceFilter}
-                    onChange={(e) => setSourceFilter(e.target.value)}
+                    onChange={(e) => {
+                        setSourceFilter(e.target.value)
+                        setPage(1);
+                    }}
                     className="border px-3 py-2 rounded"
                 >
                     <option value="all">All Sources</option>
@@ -165,9 +190,10 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
 
                 <select
                     value={sortOrder}
-                    onChange={(e) =>
-                        setSortOrder(e.target.value as "newest" | "oldest")
-                    }
+                    onChange={(e) => {
+                        setSortOrder(e.target.value as "newest" | "oldest");
+                        setPage(1);
+                    }}
                     className="border px-3 py-2 rounded"
                 >
                     <option value="newest">Newest first</option>
@@ -195,8 +221,8 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                                 e.target.value as Lead["status"]
                             )
                         }
-                        className="border rounded px-2 py-1 text-sm bg-white"
                         defaultValue=""
+                        className="border rounded px-2 py-1 text-sm bg-white"
                     >
                         <option value="" disabled>
                             Change status...
@@ -217,9 +243,10 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                                 <input
                                     type="checkbox"
                                     checked={
-                                        filteredRows.length > 0 &&
-                                        selected.length ===
-                                            filteredRows.length
+                                        paginatedRows.length > 0 &&
+                                        paginatedRows.every((lead) =>
+                                            selected.includes(lead.id)
+                                        )
                                     }
                                     onChange={toggleSelectAll}
                                 />
@@ -236,7 +263,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredRows.map((lead) => (
+                        {paginatedRows.map((lead) => (
                             <tr key={lead.id} className="hover:bg-gray-50">
                                 <td className="border p-3">
                                     <input
@@ -292,7 +319,7 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                             </tr>
                         ))}
 
-                        {filteredRows.length === 0 && (
+                        {paginatedRows.length === 0 && (
                             <tr>
                                 <td
                                     colSpan={9}
@@ -305,6 +332,32 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                     </tbody>
                 </table>
             </div>
+
+            {/* PAGINATION CONTROLS */}
+            {totalPages > 1 && (
+                <div className="text-sm text-gray-600">
+                    <span className="flex justify-between items-center mt-6">
+                        Page {page} of {totalPages}
+                    </span>
+
+                    <div className="flex gap-2">
+                        <button
+                            disabled={page === 1}
+                            onClick={() => setPage((p) => p -1)}
+                            className="px-3 py-1 border rounded disabled:opacity-50"
+                        >
+                            Prev
+                        </button>
+                        <button
+                            disabled={page === totalPages}
+                            onClick={() => setPage((p) => p + 1)}
+                            className="px-3 py-1 border rounded disabled:opacity-50"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
