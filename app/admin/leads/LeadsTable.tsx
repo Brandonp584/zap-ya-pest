@@ -10,7 +10,7 @@ type Lead = {
     message: string;
     source: string;
     status: "NEW" | "CONTACTED" | "CLOSED";
-    createdAt: Date;
+    createdAt: string;
 };
 
 export default function LeadsTable({ leads }: { leads: Lead[] }) {
@@ -157,6 +157,59 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
         setSelected([]);
     }
 
+    /* ---------------- CSV ROW SELECTION ---------------- */
+    const exportRows =
+        selected.length > 0
+            ? filteredRows.filter((l) => selected.includes(l.id))
+            : filteredRows;
+
+    /* ---------------- ⭐ CSV EXPORT ---------------- */
+    function handleExportCSV() {
+        if (exportRows.length === 0) {
+            alert("No leads to export");
+            return;
+        }
+
+        const headers = [
+            "Name",
+            "Email",
+            "Phone",
+            "Message",
+            "Source",
+            "Status",
+            "Created At",
+        ];
+
+        const csvRows = [
+            headers.join(","),
+
+            ...exportRows.map((lead) => 
+                [
+                    lead.name,
+                    lead.email,
+                    lead.phone ?? "",
+                    lead.message.replace(/"/g, '""'),
+                    lead.source,
+                    lead.status,
+                    new Date(lead.createdAt).toISOString(),
+                ]
+                    .map((value) => `"${value}"`)
+                    .join(",")
+            )
+        ];
+
+        const blob = new Blob([csvRows.join("\n")], {
+            type: "text/csv;charset=utf-8;",
+        });
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href =url;
+        link.download = `zapya-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
 
     /* ---------------- UI ---------------- */
     return (
@@ -231,8 +284,17 @@ export default function LeadsTable({ leads }: { leads: Lead[] }) {
                         <option value="CONTACTED">Contacted</option>
                         <option value="CLOSED">Closed</option>
                     </select>
+
+                    {/* CSV EXPORT BUTTON */}
+                    <button 
+                        onClick={handleExportCSV}
+                        className="ml-auto px-4 py-2 bg-black text-white rounded text-sm hover:opacity-90"
+                    >
+                        Export CSV
+                    </button>
                 </div>
             )}
+
 
             {/* TABLE */}
             <div className="overflow-x-auto">
