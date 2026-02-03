@@ -69,6 +69,35 @@ export default function MoretonBayPage() {
           Get a Free Quote
         </Link>
       </section>
+
+      {/* ========== FAQ Structured Data ========== */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Do you provide termite control in Moreton Bay?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we provide comprehensive termite inspections and treatments across the Moreton Bay Region."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are your pest treatments safe for pets and children?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely. All our treatments are family and pet safe."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </main>
   );
 }

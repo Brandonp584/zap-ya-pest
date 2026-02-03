@@ -63,6 +63,35 @@ export default function SunshineCoastPage() {
           Get a Free Quote
         </Link>
       </section>
+
+      {/* ========== FAQ Schema ========== */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Do you treat rodents on the Sunshine Coast?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, we provide professional rodent removal and prevention services across the Sunshine Coast."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I book a pest control service in Sunshine Coast?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You can contact us directly through our website or call us to schedule an appointment in the Sunshine Coast area."
+                }
+              }
+            ]
+          })
+        }}
+      />
     </main>
   );
 }
