@@ -75,16 +75,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= TRUST BAR ================= */}
-      <section className="bg-green-600 text-white py-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
-          <div className="font-semibold">✔ Licensed & Insured</div>
-          <div className="font-semibold">🐾 Pet Safe</div>
-          <div className="font-semibold">📍 Local Experts</div>
-          <div className="font-semibold">💯 Satisfaction Guaranteed</div>
-        </div>
-      </section>
-
       {/* ================= PESTS ================= */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
