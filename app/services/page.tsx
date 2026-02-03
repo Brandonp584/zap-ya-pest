@@ -3,13 +3,14 @@ export default function ServicesPage() {
         {
             title: "General Pest Control",
             description:
-                "Comprehensive pest control solutions to keep your home and business pest-free year-round.",
+                "Comprehensive pest control solutions for homes and businesses across the Moreton Bay Region and Sunshine Coast.",
         },
         {
-            title: "Termite Insection & Treatment",
+            title: "Termite Inspection & Treatment",
             description:
-                "Protect your property from costly termite damage with expert inspections and treatments.",
+                "Protect your property from costly termite damage with expert inspections and treatments tailored to local conditions.",
         },
+
         {
             title: "Rodent Control",
             description:
@@ -26,6 +27,12 @@ export default function ServicesPage() {
             <h1 className="text-4x1 font-bold text-center mb-12">
                 Our Pest Control Services
             </h1>
+
+            <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                Zap Ya Pest provides professional pest control services across the
+                Moreton Bay Region and Sunshine Coast. We service homes and businesses
+                with reliable, long-term pest solutions.
+            </p>
 
             <div className="grid gap-8 max-w-6x1 mx-auto md:grid-cols-2">
                 {services.map((service) => (
