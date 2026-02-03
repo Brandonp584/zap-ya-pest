@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,62 +10,102 @@ export const metadata: Metadata = {
 
 export default function SunshineCoastPage() {
   return (
-    <main className="max-w-5xl mx-auto px-6 py-20 space-y-10">
-      <header className="text-center">
-        <h1 className="text-4xl font-extrabold mb-4">
-          Pest Control on the Sunshine Coast
-        </h1>
-        <p className="text-gray-600 text-lg">
-          Professional pest control solutions designed for Sunshine Coast homes
-          and businesses.
-        </p>
-      </header>
+    <main className="font-sans">
 
-      <section>
-        <h2 className="text-2xl font-semibold mb-3">
-          Servicing the Sunshine Coast
-        </h2>
-        <p className="text-gray-600">
-          We service the Sunshine Coast including Caloundra, Maroochydore,
-          Mooloolaba, Noosa, Buderim, and surrounding areas. Our team understands
-          the unique pest challenges caused by coastal climates.
-        </p>
+      {/* ================= HERO ================= */}
+      <section className="relative w-full aspect-[16/9] md:aspect-[16/7] lg:aspect-[16/6]">
+        <Image
+          src="/images/sunshine-coast.png"
+          alt="Sunshine Coast Pest Control"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
+
+        {/* Hero Text */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:px-20">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4">
+            Reliable Pest Control in the <span className="text-green-400">Sunshine Coast</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-white max-w-lg mb-6">
+            Fast, safe, and effective pest control services for homes and businesses. Local experts who know the Sunshine Coast and its pests inside out.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <Link
+              href="/contact"
+              className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
+            >
+              Book a Free Quote
+            </Link>
+            <Link
+              href="/services"
+              className="border border-green-600 hover:bg-green-100 hover:text-green-800 transition px-6 py-3 rounded-md font-semibold"
+            >
+              View Services
+            </Link>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2 className="text-2xl font-semibold mb-3">
-          Our Pest Control Services
+      {/* ================= ABOUT ================= */}
+      <section className="max-w-5xl mx-auto px-6 py-16 space-y-10">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center">
+          Local Pest Control Experts on the Sunshine Coast
         </h2>
-        <p className="text-gray-600 mb-4">
-          From general pest control to termite inspections and rodent management,
-          Zap Ya Pest delivers safe and effective solutions.
+        <p className="text-gray-700 text-center max-w-3xl mx-auto">
+          Zap Ya Pest services the Sunshine Coast including Caloundra, Maroochydore, Mooloolaba, Noosa, Buderim, and surrounding areas. Our local expertise ensures fast, effective pest control solutions tailored to the region's unique challenges.
         </p>
 
-        <Link
-          href="/services"
-          className="underline font-semibold"
-        >
-          View services →
-        </Link>
+        {/* Pests Section */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3">Pests We Commonly Treat</h3>
+          <ul className="list-disc pl-6 text-gray-700 space-y-1">
+            <li>Ants</li>
+            <li>Termites</li>
+            <li>Cockroaches</li>
+            <li>Spiders</li>
+            <li>Rodents</li>
+            <li>Mosquitoes</li>
+            <li>Wasps</li>
+          </ul>
+        </div>
+
+        {/* Why Choose Us */}
+        <div className="grid md:grid-cols-3 gap-8 text-center mt-12">
+          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-semibold text-lg mb-2">Local Expertise</h4>
+            <p className="text-gray-700 text-sm">
+              We know the Sunshine Coast area and local pest habits to provide the most effective treatments.
+            </p>
+          </div>
+          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-semibold text-lg mb-2">Safe & Effective</h4>
+            <p className="text-gray-700 text-sm">
+              Eco-friendly products safe for family and pets while remaining tough on pests.
+            </p>
+          </div>
+          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-semibold text-lg mb-2">Licensed & Insured</h4>
+            <p className="text-gray-700 text-sm">
+              Fully licensed and insured technicians for peace of mind.
+            </p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <Link
+            href="/contact"
+            className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
+          >
+            Schedule Your Pest Service
+          </Link>
+        </div>
       </section>
 
-      <section className="bg-slate-100 rounded-xl p-8 text-center">
-        <h2 className="text-2xl font-bold mb-3">
-          Book Pest Control on the Sunshine Coast
-        </h2>
-        <p className="text-gray-600 mb-6">
-          Get in touch today for expert advice and fast service.
-        </p>
-
-        <Link
-          href="/contact"
-          className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
-        >
-          Get a Free Quote
-        </Link>
-      </section>
-
-      {/* ========== FAQ Schema ========== */}
+      {/* ================= FAQ Structured Data ================= */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -74,18 +115,26 @@ export default function SunshineCoastPage() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "Do you treat rodents on the Sunshine Coast?",
+                "name": "Do you provide termite control on the Sunshine Coast?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes, we provide professional rodent removal and prevention services across the Sunshine Coast."
+                  "text": "Yes, we provide professional termite inspections and treatments across the Sunshine Coast."
                 }
               },
               {
                 "@type": "Question",
-                "name": "How do I book a pest control service in Sunshine Coast?",
+                "name": "Are your pest treatments safe for pets and children?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "You can contact us directly through our website or call us to schedule an appointment in the Sunshine Coast area."
+                  "text": "Absolutely. All our treatments are family and pet safe."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which areas do you service on the Sunshine Coast?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We service Caloundra, Maroochydore, Mooloolaba, Noosa, Buderim, and surrounding suburbs."
                 }
               }
             ]
