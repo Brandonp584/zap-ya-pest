@@ -13,13 +13,13 @@ export default function AreasPage() {
       name: "Moreton Bay Region",
       slug: "moreton-bay",
       description:
-        "Reliable pest control services across homes and businesses in the Moreton Bay Region.",
+        "Local pest control services across North Lakes, Redcliffe, Caboolture, Morayfield, Bribie Island and surrounding suburbs.",
     },
     {
       name: "Sunshine Coast",
       slug: "sunshine-coast",
       description:
-        "Expert pest control solutions tailored for Sunshine Coast properties.",
+        "Professional pest control for Caloundra, Maroochydore, Mooloolaba, Noosa, Buderim and nearby areas.",
     },
   ];
 
@@ -30,8 +30,8 @@ export default function AreasPage() {
       </h1>
 
       <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-        Zap Ya Pest provides professional, reliable pest control services across
-        South East Queensland. Select your area below to learn more.
+        Zap Ya Pest proudly services the Moreton Bay Region and the Sunshine Coast 
+        with safe, effective, and reliable pest control solutions.
       </p>
 
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -43,9 +43,9 @@ export default function AreasPage() {
           >
             <h2 className="text-2xl font-semibold mb-2">{area.name}</h2>
             <p className="text-gray-600">{area.description}</p>
-            <span className="inline-block mt-4 font-semibold underline">
-              View services →
-            </span>
+              <span className="inline-block mt-4 font-semibold underline">
+                View service details →
+              </span>
           </Link>
         ))}
       </div>
