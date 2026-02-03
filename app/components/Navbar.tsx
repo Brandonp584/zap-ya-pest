@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <nav className="stick top-0 z-50 bg-white border-b">
+        <nav className="sticky top-0 z-50 bg-white border-b">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
                 {/* LOGO / BRAND */}
@@ -27,9 +27,6 @@ export default function Navbar() {
                     </Link>
                     <Link href="/about" className="hover:text-green-600 transition">
                         About 
-                    </Link>
-                    <Link href="/contact" className="hover:text-green-600 transition">
-                        Contact Us 
                     </Link>
                 </div>
 

@@ -1,168 +1,180 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Image from "next/image";
+import Link from "next/link";
+import { pests } from "./lib/pest";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen text-gray-900">
+    <main>
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="flex flex-col items-center justify-center text-center px-6 py-28">
-        <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-6xl font-bold max-4xl"
-      >
-        Fast, Reliable Pest Control You Can Trust
-      </motion.h1>
+       {/* ================= HERO ================= */}
+       <section className="bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
 
-      <motion.p 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="mt-6 text-lg md:text-xl max-w-2xl text-gray-600"
-      >
-        Protect your home and business with professional pest control services.
-        Safe treatments, proven results, and local experts you can rely on.
-      </motion.p>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
+              Fast, Reliable{" "}
+              <span className="text-green-500">Pest Control</span>
+            </h1>
+            <p className="mt-6 text-lg text-slate-300 max-w-xl">
+              Professional pest control services for homes and businesses.
+              Safe treatments, guaranteed results, and local experts you can trust.
+            </p>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="mt-10 flex gap-4"
-      >
-        <a 
-          href="/contact"
-          className="px-6 py-3 rounded-md text-white bg-black hover:opacity-90 transition"
-        >
-          Get a Free Quote
-        </a>
-
-        < a 
-          href="/services"
-          className="px-6 py-3 rounded-md text-white bg-black hover:opacity transition"
-        >
-          View Services
-        </a>
-      </motion.div>
-      </section>
-
-      {/* ================= TRUST BAR ================= */}
-      <section className="bg-gray-50 pu-10">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-sm font-medium">
-          <div>✔ Licensed & Insured</div>
-          <div>✔ Local Pest Experts</div>
-          <div>✔ Family & Pet Safe</div>
-          <div>✔ Satisfaction Guaranteed</div>
-        </div>
-      </section>
-
-      {/* ================= SERVICES PREVIEW ================= */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-14">
-          Our Pest Control Services
-        </h2>
-
-        <div className="grid md:grid-cols-4 gap-8">
-          {[
-            "General Pest Control",
-            "Termite Protection",
-            "Rodent Control",
-            "Commercial Pest Control",
-          ].map((service, index) => (
-            <motion.div
-              key={service}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="border rounded-xl p-6 hover:shadow-lg transition"
-            >
-              <h3 className="font-semibold text-lg mb-2">{service}</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Effective treatments designed to eliminate and prevent pests.
-              </p>
-              <a href="/services" className="text-sm font-medium underline">
-                Learn More →
-              </a>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= WHY CHOOSE US ================= */}
-      <section className="bg-black text-white py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-14">
-            Why Choose Zap Ya Pest?
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-12 text-center">
-            {[
-              {
-                title: "Experienced Technicians",
-                text: "Fully trained professionals using industry-leading methods.",
-              },
-              {
-                title: "Safe & Effecive Treatments",
-                text: "Tough on pests while remaing safe for families and pests.",
-              },
-              {
-                title: "Reliable, On-Time Service",
-                text: " We show up on time and get the job done right the first time",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{opacity: 1, y: 0 }}
-                viewport={{ once: true}}
-                transition={{ delay: index * 0.15 }}
+            <div className="mt-8 flex gap-4">
+              <Link
+                href="/contact"
+                className="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-md font-semibold"
               >
-                <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-300">{item.text}</p>
-              </motion.div>                
-            ))}
+                Get a Free Quote 
+              </Link>
+              <Link 
+                href="/services"
+                className="border border-slate-600 hover:border-white transition px-6 py-3 rounded-md font-semibold"
+              >
+                View Services 
+              </Link>
+            </div>
+          </div>
+
+          {/* Image / Visual Placeholder */}
+          <div className="hidden md:block">
+            <div className="h-80 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-500">
+              Pest Control Image
+            </div>
           </div>
         </div>
-      </section>
+       </section>
 
-      {/* ================= ABOUT PREVIEW ================= */}
-      <section className="py-24 px-6 mx-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-6">
-          Local Pest Control You Can Rely On 
-        </h2>
+       {/* ============ TRUST BAR ================= */}
+       <section className="bg-green border-b">
+        <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>Licensed & Insured</div>
+          <div>Family & Pet Safe</div>
+          <div>Local Pest Experts</div>
+          <div>Satisfaction Guaranteed</div>
+        </div>
+       </section>
 
-        <p className="text-gray-600 text-lg mb-6">
-          Zap Ya Pest is a locally operated pest control company focused on
-          protecting homes and businesses with honest service and proven solutions.
-        </p>
+       {/* ========== PESTS WE TREAT ========== */}
+       <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl font-extrabold text-center mb-12">
+            Pests We Treat
+          </h2>
 
-        <a href="/about" className="font- medium underline">
-        Learn More About Us →
-        </a>
-      </section>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            {pests.map((pest) => (
+              <Link
+                key={pest.slug}
+                href={`/pests/${pest.slug}`}
+                className="group border rounded-xl bg-white p-6 text-center hover:shadow-lg transition"
+              >
+                <div className="w-14 h-14 mx-auto flex items-center justify-center rounded-full bg-green-50">
+                  <img src={pest.icon} className="w-8 h-8 object-contain" />
+                </div>
+                <p className="mt-4 font-semibold">{pest.name}</p>
+              </Link>
+            ))}
+          </div>
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="bg-gray-900 text-white py-24 text-center px-6">
-        <h2 className="text-3xl font-bold mb-4">
-          Need Pest Control Today?
-        </h2>
+          
+          <div className="text-center mt-10">
+            <Link
+              href="/pests"
+              className="underline font-semibold hover:text-green-600"
+            >
+              View All Pest →
+            </Link>
+          </div>
+        </div>
+        </section>
 
-        <p className="text-gray-300 mb-8">
-          Contact Zap Ya Pest now for a fast, reliable pest control servicess.
-        </p>
+        {/* ========== SERVICES =========== */
+        <section className="py-24">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-3xl font-extrabold text-center mb-12">
+              Our Services
+            </h2>
 
-        <a 
-          href="/contact"
-          className="px-8 py-4 bg-white text-black rounded-md font-medium hover:opacity-90 transition"
-        >
-          Get a Free Quote
-        </a>
-      </section>
+            <div className="grid md:grid-cols-4 gap-8">
+              {[
+                "General Pest Control",
+                "Termite Treatment",
+                "Rodent Control",
+                "Commercial Pest Control",
+              ].map((service) => (
+              <div
+                key={service}
+                className="border rounded-xl p-6 hover:shadow-lg transition"
+              >
+                <h3 className="font-semibold text-lg mb-2">{service}</h3>
+                <p className="text-sm text-slate-600 mb-4">
+                  Effective treatments designed to eliminate and prevent pests.
+                </p>
+                <Link href="/services" className="underline text-sm font-medium">
+                  Learn More →
+                </Link>
+              </div>
+            ))} 
+            </div>  
+          </div>  
+        </section>}  
+
+        {/* ========== WWHY CHOOSE US ========== */}
+        <section className="bg-slate-900 text-white py-24">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-3xl font-extrabold text-center mb-12">
+              Why Choose Zap Ya Pest?
+            </h2>
+
+            <div className="grid md:grid-cols-3 gap-10 text-center">
+              <div>
+                <h3 className="font-semibold text-lg mb-2">
+                  Experienced Technicians
+                </h3>
+                <p className="text-slate-300 text-sm">
+                  Fully trained professionals using industry-proven methods.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg mb-2">
+                  Safe & Effective Treatments
+                </h3>
+                <p className="text-slate-300 text-sm">
+                  Tough on pests, safe for familes and pets.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg mb-2">
+                  Reliable Service
+                </h3>
+                <p className="text-slate-300 text-sm">
+                  On-time service with guaranteed results.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========== FINAL CTA ========== */}
+        <section className="bg-green-600 text-white py-24 text-center px-6">
+            <h2 className="text-3xl font-extrabold mb-4">
+              Need Pest Control Today?
+            </h2>
+
+            <p className="mb-8 text-green-100">
+              Contatc Zap Ya Pests for fast, reliable pest control solutions.
+            </p>
+
+            <Link
+              href="/contact"
+              className="bg-white text-green-700 px-8 py-4 rounded-md font-semibold hover:opacity-90 transition"
+            >
+              Get a Free Quote
+            </Link>
+        </section>     
+
     </main>
   )
 }
