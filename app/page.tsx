@@ -41,19 +41,19 @@ export default function HomePage() {
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
               <div className="flex items-center gap-3 text-sm sm:text-base">
                 <span className="text-green-500 text-2xl">⚡</span>
-                Same-day service available
+                <span className="text-white">Same-day service available</span>
               </div>
               <div className="flex items-center gap-3 text-sm sm:text-base">
                 <span className="text-green-500 text-2xl">🔒</span>
-                Licensed & Insured technicians
+                <span className="text-white">Licensed & Insured technicians</span>
               </div>
               <div className="flex items-center gap-3 text-sm sm:text-base">
                 <span className="text-green-500 text-2xl">🐾</span>
-                Family & Pet Safe treatments
+                <span className="text-white">Family & Pet Safe treatments</span>
               </div>
               <div className="flex items-center gap-3 text-sm sm:text-base">
                 <span className="text-green-500 text-2xl">💯</span>
-                Satisfaction Guaranteed
+                <span className="text-white">Satisfaction Guaranteed</span>
               </div>
             </div>
           </div>
@@ -76,9 +76,9 @@ export default function HomePage() {
       </section>
 
       {/* ================= PESTS ================= */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white text-slate-900">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 tracking-tight text-black">
             Pests We Treat
           </h2>
 
@@ -87,16 +87,18 @@ export default function HomePage() {
               <Link
                 key={pest.slug}
                 href={`/pests/${pest.slug}`}
-                className="group border rounded-xl bg-slate-50 p-6 text-center hover:shadow-lg transition"
+                className="group border rounded-xl bg-slate-50 p-6 text-center hover:shadow-lg transition text-slate-900"
               >
                 <div className="w-14 h-14 mx-auto flex items-center justify-center rounded-full bg-green-50 mb-4">
-                  <img
+                  <Image
                     src={pest.icon}
                     alt={pest.name}
+                    width={32}
+                    height={32}
                     className="w-8 h-8 object-contain"
                   />
                 </div>
-                <p className="font-semibold">{pest.name}</p>
+                <p className="font-semibold text-black">{pest.name}</p>
               </Link>
             ))}
           </div>
@@ -104,7 +106,7 @@ export default function HomePage() {
           <div className="text-center mt-10">
             <Link
               href="/pests"
-              className="underline font-semibold hover:text-green-600"
+              className="underline font-semibold text-black hover:text-green-600"
             >
               View All Pests →
             </Link>
@@ -113,15 +115,14 @@ export default function HomePage() {
       </section>
 
       {/* ================= SERVICES PREVIEW ================= */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 text-slate-900">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 tracking-tight text-black">
             Our Core Services
           </h2>
 
           <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
+            {[{
                 title: "Residential Pest Control",
                 description: "Whole-home protection for common household pests.",
               },
@@ -140,13 +141,11 @@ export default function HomePage() {
             ].map((service) => (
               <div
                 key={service.title}
-                className="border rounded-xl p-6 hover:shadow-lg transition bg-white"
+                className="border rounded-xl p-6 hover:shadow-lg transition bg-white text-black"
               >
                 <h3 className="font-semibold text-lg mb-2">{service.title}</h3>
-                <p className="text-sm text-slate-600 mb-4">
-                  {service.description}
-                </p>
-                <Link href="/services" className="underline text-sm font-medium">
+                <p className="text-sm mb-4">{service.description}</p>
+                <Link href="/services" className="underline text-sm font-medium text-black">
                   Learn More →
                 </Link>
               </div>
@@ -156,60 +155,60 @@ export default function HomePage() {
       </section>
 
       {/* ================= SERVICE AREAS ================= */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white text-slate-900">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">
+          <h2 className="text-3xl sm:text-4xl font-extrabold mb-6 text-black">
             Areas We Service
           </h2>
 
-          <p className="max-w-2xl mx-auto text-slate-600 mb-10">
+          <p className="max-w-2xl mx-auto text-black mb-10">
             Zap Ya Pests proudly services homes and businesses across the  
             <strong> Moreton Bay Region</strong> and the <strong>Sunshine Coast Region</strong>.
           </p>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
 
-          {/* MORETON BAY REGION */}
-          <div className="bg-slate-50 p-8 rounded-xl border">
-            <h3 className="text-2xl font-bold text-green-700 mb-4">
+            {/* MORETON BAY REGION */}
+            <div className="bg-slate-50 p-8 rounded-xl border text-black">
+              <h3 className="text-2xl font-bold text-green-700 mb-4">
                 Moreton Bay Region
-            </h3>
+              </h3>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-slate-800 font-semibold">
-              <div>North Lakes</div>
-              <div>Mango Hill</div>
-              <div>Redcliffe</div>
-              <div>Margate</div>
-              <div>Scarborough</div>
-              <div>Clontarf</div>
-              <div>Newport</div>
-              <div>Rothwell</div>
-              <div>Deception Bay</div>
-              <div>Burpengary</div>
-              <div>Narangba</div>
-              <div>Morayfield</div>
-              <div>Caboolture</div>
-              <div>Bellmere</div>
-              <div>Upper Caboolture</div>
-              <div>Elimbah</div>
-              <div>Beachmere</div>
-              <div>Bribie Island</div>
-              <div>Wamuran</div>
-              <div>Woodford</div>
-              <div>Mount Mee</div>
-              <div>Dayboro</div>
-              <div>Samford</div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-semibold">
+                <div>North Lakes</div>
+                <div>Mango Hill</div>
+                <div>Redcliffe</div>
+                <div>Margate</div>
+                <div>Scarborough</div>
+                <div>Clontarf</div>
+                <div>Newport</div>
+                <div>Rothwell</div>
+                <div>Deception Bay</div>
+                <div>Burpengary</div>
+                <div>Narangba</div>
+                <div>Morayfield</div>
+                <div>Caboolture</div>
+                <div>Bellmere</div>
+                <div>Upper Caboolture</div>
+                <div>Elimbah</div>
+                <div>Beachmere</div>
+                <div>Bribie Island</div>
+                <div>Wamuran</div>
+                <div>Woodford</div>
+                <div>Mount Mee</div>
+                <div>Dayboro</div>
+                <div>Samford</div>
+              </div>
             </div>
-          </div>
 
-          {/* SUNSHINE COAST REGION */}
-          <div className="bg-slate-50 p-8 rounded-xl border">
-            <h3 className="text-2xl font-bold text-green-700 mb-4">
-              Sunshine Coast Region
-            </h3>
+            {/* SUNSHINE COAST REGION */}
+            <div className="bg-slate-50 p-8 rounded-xl border text-black">
+              <h3 className="text-2xl font-bold text-green-700 mb-4">
+                Sunshine Coast Region
+              </h3>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-slate-800 font-semibold">
-              <div>Caloundra</div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-semibold">
+                <div>Caloundra</div>
                 <div>Pelican Waters</div>
                 <div>Golden Beach</div>
                 <div>Kawana</div>
@@ -234,6 +233,7 @@ export default function HomePage() {
                 <div>Beerwah</div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
