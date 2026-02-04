@@ -4,6 +4,7 @@ export const pests = [
     name: "Ants",
     slug: "ants",
     icon: "/icons/ant.png",
+    image: "/public/images/ants.png",
     summary: "Small but persistent insects that invade kitchens and living spaces, often attracted to food and moisture.",
     prevention: "Seal cracks, keep food in airtight containers, and clean up spills promptly.",
     treatment: "Use ant baits, natural deterrents like vinegar or citrus, or consult pest control professionals.",
