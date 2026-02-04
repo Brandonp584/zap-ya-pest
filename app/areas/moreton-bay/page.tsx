@@ -10,11 +10,10 @@ export const metadata: Metadata = {
 
 export default function MoretonBayPage() {
   return (
-    <main className="font-sans">
+    <main className="font-sans bg-white text-gray-900">
 
       {/* ================= HERO ================= */}
-      <section className="relative h-[500px] md:h-[600px] w-full overflow-hidden">
-        {/* Background Image */}
+      <section className="relative h-[400px] sm:h-[500px] md:h-[600px] w-full overflow-hidden">
         <Image
           src="/images/Moreton.png"
           alt="Moreton Bay Pest Control"
@@ -22,29 +21,26 @@ export default function MoretonBayPage() {
           className="object-cover object-center"
           priority
         />
-
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/40"></div>
 
-        {/* Text Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center h-full text-center md:text-left md:flex-row md:items-center gap-10">
-          <div className="space-y-6 text-white md:max-w-lg">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center h-full text-center md:text-left md:flex-row md:items-center gap-6">
+          <div className="space-y-4 md:max-w-lg text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-extrabold leading-tight tracking-tight">
               Effective Pest Control Solutions in the <span className="text-green-400">Moreton Bay Region</span>
             </h1>
-            <p className="text-lg sm:text-xl">
+            <p className="text-base sm:text-lg font-sans leading-relaxed">
               Fast & affordable pest control, keeping homes and businesses safe from pests. Local experts who know the Moreton Bay Region inside out.
             </p>
-            <div className="flex flex-wrap gap-4 mt-6 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
               <Link
                 href="/contact"
-                className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
+                className="bg-green-600 text-white px-5 py-2 rounded-md font-semibold uppercase tracking-wide shadow hover:opacity-90 transition"
               >
                 Book a Free Quote
               </Link>
               <Link
                 href="/services"
-                className="border border-green-600 hover:bg-green-100 hover:text-green-800 transition px-6 py-3 rounded-md font-semibold"
+                className="border border-green-600 px-5 py-2 rounded-md font-semibold uppercase tracking-wide hover:bg-green-100 hover:text-green-800 transition"
               >
                 View Services
               </Link>
@@ -54,18 +50,16 @@ export default function MoretonBayPage() {
       </section>
 
       {/* ================= ABOUT ================= */}
-      <section className="max-w-5xl mx-auto px-6 py-16 space-y-10">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center">
-          Local Pest Control Experts in Moreton Bay
-        </h2>
-        <p className="text-gray-700 text-center max-w-3xl mx-auto">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-8">
+        <h2 className="text-xl sm:text-2xl font-serif font-bold text-center text-black leading-snug tracking-tight">Local Pest Control Experts in Moreton Bay</h2>
+        <p className="text-gray-700 text-center max-w-2xl mx-auto font-sans leading-relaxed">
           Zap Ya Pest proudly services Moreton Bay including North Lakes, Redcliffe, Caboolture, Morayfield, Bribie Island, and surrounding suburbs. Our local knowledge ensures fast, effective treatments tailored to the areas unique pest challenges.
         </p>
 
         {/* Pests Section */}
         <div>
-          <h3 className="text-xl font-semibold mb-3">Pests We Commonly Treat</h3>
-          <ul className="list-disc pl-6 text-gray-700 space-y-1">
+          <h3 className="text-lg sm:text-xl font-serif font-semibold mb-2 text-black">Pests We Commonly Treat</h3>
+          <ul className="list-disc pl-5 text-gray-700 space-y-1 font-sans">
             <li>Ants</li>
             <li>Termites</li>
             <li>Cockroaches</li>
@@ -76,45 +70,45 @@ export default function MoretonBayPage() {
           </ul>
           <Link
             href="/pests"
-            className="inline-block mt-4 underline font-semibold"
+            className="inline-block mt-3 text-green-600 font-semibold underline font-sans"
           >
             View all pests →
           </Link>
         </div>
 
         {/* Why Choose Us */}
-        <div className="grid md:grid-cols-3 gap-8 text-center mt-12">
-          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
-            <h4 className="font-semibold text-lg mb-2">Local Expertise</h4>
-            <p className="text-gray-700 text-sm">Our team knows the Moreton Bay area and local pest habits to provide the most effective treatments.</p>
+        <div className="grid md:grid-cols-3 gap-6 text-center mt-8">
+          <div className="p-4 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-serif font-semibold text-lg mb-1 text-black">Local Expertise</h4>
+            <p className="text-gray-700 text-sm font-sans">Our team knows the Moreton Bay area and local pest habits to provide the most effective treatments.</p>
           </div>
-          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
-            <h4 className="font-semibold text-lg mb-2">Safe & Effective</h4>
-            <p className="text-gray-700 text-sm">We use eco-friendly products that are safe for your family and pets, while remaining tough on pests.</p>
+          <div className="p-4 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-serif font-semibold text-lg mb-1 text-black">Safe & Effective</h4>
+            <p className="text-gray-700 text-sm font-sans">We use eco-friendly products safe for your family and pets, while remaining tough on pests.</p>
           </div>
-          <div className="p-6 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
-            <h4 className="font-semibold text-lg mb-2">Licensed & Insured</h4>
-            <p className="text-gray-700 text-sm">All our technicians are fully licensed and insured, giving you peace of mind with every treatment.</p>
+          <div className="p-4 bg-green-50 rounded-xl shadow hover:shadow-lg transition">
+            <h4 className="font-serif font-semibold text-lg mb-1 text-black">Licensed & Insured</h4>
+            <p className="text-gray-700 text-sm font-sans">All our technicians are fully licensed and insured, giving you peace of mind with every treatment.</p>
           </div>
         </div>
 
         {/* Residential & Commercial */}
-        <section className="space-y-8 mt-16">
+        <div className="space-y-6 mt-8">
           <div>
-            <h3 className="text-2xl font-semibold mb-3">Residential Pest Control Services</h3>
-            <p className="text-gray-700">We provide targeted, comprehensive, and complete pest control solutions for your home, including termite inspections and end-of-lease treatments. Safe for your family and pets.</p>
+            <h3 className="text-lg sm:text-xl font-serif font-semibold mb-1 text-black">Residential Pest Control Services</h3>
+            <p className="text-gray-700 font-sans leading-relaxed">We provide targeted, comprehensive, and complete pest control solutions for your home, including termite inspections and end-of-lease treatments. Safe for your family and pets.</p>
           </div>
           <div>
-            <h3 className="text-2xl font-semibold mb-3">Commercial Pest Control Services</h3>
-            <p className="text-gray-700">Protect your business with our expert commercial pest management programs, including HACCP and ISO9001 compliant solutions. Ideal for offices, restaurants, hotels, and warehouses.</p>
+            <h3 className="text-lg sm:text-xl font-serif font-semibold mb-1 text-black">Commercial Pest Control Services</h3>
+            <p className="text-gray-700 font-sans leading-relaxed">Protect your business with our expert commercial pest management programs, including HACCP and ISO9001 compliant solutions. Ideal for offices, restaurants, hotels, and warehouses.</p>
           </div>
-        </section>
+        </div>
 
         {/* Locations */}
-        <section className="space-y-4 mt-16">
-          <h3 className="text-2xl font-semibold">Locations We Service</h3>
-          <p className="text-gray-700">We service the Moreton Bay Region including:</p>
-          <ul className="list-disc pl-6 text-gray-700 space-y-1">
+        <div className="mt-8">
+          <h3 className="text-lg sm:text-xl font-serif font-semibold mb-1 text-black">Locations We Service</h3>
+          <p className="text-gray-700 font-sans leading-relaxed">We service the Moreton Bay Region including:</p>
+          <ul className="list-disc pl-5 text-gray-700 space-y-1 font-sans">
             <li>Albany Creek</li>
             <li>Banksia Beach</li>
             <li>Beachmere</li>
@@ -135,55 +129,18 @@ export default function MoretonBayPage() {
             <li>Sandstone Point</li>
             <li>Scarborough</li>
           </ul>
-        </section>
+        </div>
 
         {/* CTA */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-8">
           <Link
             href="/contact"
-            className="bg-green-600 text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition"
+            className="bg-green-600 text-white px-5 py-2 rounded-md font-semibold uppercase tracking-wide shadow hover:opacity-90 transition"
           >
             Schedule Your Pest Service
           </Link>
         </div>
       </section>
-
-      {/* ================= FAQ Structured Data ================= */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Do you provide termite control in Moreton Bay?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, we provide comprehensive termite inspections and treatments across the Moreton Bay Region."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Are your pest treatments safe for pets and children?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Absolutely. All our treatments are family and pet safe."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Which areas do you service in Moreton Bay?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We service North Lakes, Redcliffe, Caboolture, Morayfield, Bribie Island, and surrounding suburbs."
-                }
-              }
-            ]
-          })
-        }}
-      />
     </main>
   );
 }
