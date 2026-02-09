@@ -53,6 +53,9 @@ export default function Footer() {
             <div>
                 <h4><a href="https://www.flaticon.com/free-icons/ant" title="ant icons">Icons from - Flaticon</a></h4>
             </div>
+            <div>
+                <h2>Made By J&B Web Studio</h2>
+            </div>
 
             {/* BOTTOM BAR */}
             <div className="border-t border-slate-800 py-4 text-center text-sm text-slate-500">

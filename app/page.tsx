@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { pests } from "./lib/pest";
+import { pests, Pest } from "@/app/lib/pests";
 import { useState } from "react";
 
 export default function HomePage() {
@@ -69,7 +69,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 tracking-tight text-black">Pests We Treat</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {pests.map(pest => (
+            {pests.map((pest: Pest) => (
               <Link key={pest.slug} href={`/pests/${pest.slug}`} className="group border rounded-xl bg-slate-50 p-6 text-center hover:shadow-lg transition text-slate-900">
                 <div className="w-14 h-14 mx-auto flex items-center justify-center rounded-full bg-green-50 mb-4">
                   <Image src={pest.icon} alt={pest.name} width={32} height={32} className="w-8 h-8 object-contain" />

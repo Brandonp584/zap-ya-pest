@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { pests } from "@/app/lib/pest";
+import { pests, Pest } from "@/app/lib/pests"; // ✅ Correct import
 import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
@@ -34,11 +34,10 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 text-slate-700 font-medium">
-
           <Link href="/" className="hover:text-green-600 transition">Home</Link>
           <Link href="/services" className="hover:text-green-600 transition">Services</Link>
 
-          {/* Desktop Pests Dropdown */}
+          {/* Pests Dropdown */}
           <div className="relative group">
             <Link href="/pests" className="hover:text-green-600 font-medium">
               Pests ▾
@@ -48,9 +47,8 @@ export default function Navbar() {
                             transition-all duration-300 ease-out
                             transform -translate-y-2 group-hover:translate-y-0">
               <div className="bg-white border rounded-lg shadow-lg p-4
-                              grid grid-cols-2 md:grid-cols-3 gap-8 min-w-[22rem] max-w-[56rem]
-                              transition-transform duration-200 scale-95 group-hover:scale-100">
-                {pests.map((pest) => (
+                              grid grid-cols-2 md:grid-cols-3 gap-4 min-w-[22rem] max-w-[56rem]">
+                {pests.map((pest: Pest) => (
                   <Link
                     key={pest.slug}
                     href={`/pests/${pest.slug}`}
@@ -65,7 +63,7 @@ export default function Navbar() {
 
           <Link href="/about" className="hover:text-green-600 transition">About</Link>
 
-          {/* Desktop Areas Dropdown */}
+          {/* Areas Dropdown */}
           <div className="relative group">
             <button className="hover:text-green-600 transition font-medium">
               Locations ▾
@@ -74,7 +72,7 @@ export default function Navbar() {
                             opacity-0 invisible group-hover:opacity-100 group-hover:visible
                             transition-all duration-300 ease-out
                             transform -translate-y-2 group-hover:translate-y-0">
-              <div className="bg-white border border-gray-200 rounded-lg shadow-lg">
+              <div className="bg-white border border-gray-200 rounded-lg">
                 <Link href="/areas/moreton-bay" className="block px-4 py-2 hover:bg-gray-100 text-slate-700 transition">
                   Moreton Bay Region
                 </Link>
@@ -137,13 +135,14 @@ export default function Navbar() {
                 ▾
               </button>
             </div>
-            <div className={`overflow-auto transition-max-height duration-300 ${mobilePestsOpen ? "max-h-[calc(100vh-10rem)]" : "max-h-0"}`}>
+            <div className={`overflow-auto transition-max-height duration-300 ease-out ${mobilePestsOpen ? "max-h-[calc(100vh-10rem)]" : "max-h-0"}`}>
               <div className="mt-2 space-y-1">
-                {pests.map((pest) => (
+                {pests.map((pest: Pest) => (
                   <Link
                     key={pest.slug}
                     href={`/pests/${pest.slug}`}
                     className="block px-2 py-1 hover:bg-gray-100 text-slate-700 rounded transition"
+                    onClick={() => setMobileOpen(false)}
                   >
                     {pest.name}
                   </Link>
@@ -165,7 +164,7 @@ export default function Navbar() {
                 ▾
               </button>
             </div>
-            <div className={`overflow-auto transition-max-height duration-300 ${mobileAreasOpen ? "max-h-[calc(100vh-10rem)]" : "max-h-0"}`}>
+            <div className={`overflow-auto transition-max-height duration-300 ease-out ${mobileAreasOpen ? "max-h-[calc(100vh-10rem)]" : "max-h-0"}`}>
               <div className="mt-2 space-y-1">
                 <Link href="/areas/moreton-bay" className="block px-2 py-1 hover:bg-gray-100 text-slate-700 rounded transition">
                   Moreton Bay Region
