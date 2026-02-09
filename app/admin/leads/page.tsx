@@ -1,23 +1,38 @@
 import { prisma } from "@/app/lib/prisma";
-import LeadsTable from "./LeadsTable";
+import LeadsTable, { Lead } from "./LeadsTable";
+import { Roboto_Slab, Open_Sans } from "next/font/google";
 
 export const runtime = "nodejs";
 
+// Fonts
+const robotoSlab = Roboto_Slab({ subsets: ["latin"], weight: ["400", "700"] });
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "600"] });
+
 export default async function AdminLeadsPage() {
+  // Fetch leads from Prisma
   const rawLeads = await prisma.lead.findMany({
     orderBy: { createdAt: "desc" },
   });
 
-  const leads = rawLeads.map((lead) => ({
-  ...lead,
-  createdAt: lead.createdAt.toISOString(),
-  status: lead.status as "NEW" | "CONTACTED" | "CLOSED",
-}));
-
+  // Map Prisma `string` status to TypeScript enum type
+  const leads: Lead[] = rawLeads.map((lead) => ({
+    ...lead,
+    status: lead.status as Lead["status"], // cast to union type
+    createdAt: new Date(lead.createdAt),  // ensure it's a Date object
+  }));
 
   return (
-    <main className="min-h-screen px-6 py-20 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Lead Submissions</h1>
+    <main
+      className={`${openSans.className} min-h-screen px-4 sm:px-6 lg:px-12 py-12 max-w-6xl mx-auto space-y-8`}
+    >
+      {/* Page Title */}
+      <h1
+        className={`${robotoSlab.className} text-2xl sm:text-3xl font-bold text-gray-900`}
+      >
+        Lead Submissions
+      </h1>
+
+      {/* Leads Table */}
       <LeadsTable leads={leads} />
     </main>
   );

@@ -7,13 +7,19 @@ datasource db {
   provider = "postgresql"
 }
 
+enum LeadStatus {
+  NEW 
+  CONTACTED
+  CLOSED
+}
+
 model Lead {
-  id        String     @id @default(uuid())
+  id        String      @id @default(uuid())
   name      String
   email     String
   phone     String?
   message   String
-  source    String   @default("website")
-  status    String   @default("NEW")
-  createdAt DateTime @default(now())
+  source    String      @default("website")
+  status    LeadStatus  @default(NEW)
+  createdAt DateTime    @default(now())
 }
