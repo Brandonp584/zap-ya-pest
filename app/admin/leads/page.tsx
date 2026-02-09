@@ -17,13 +17,13 @@ const openSans = Open_Sans({
 });
 
 export default async function AdminLeadsPage() {
-  // Fetch leads from Prisma
-  const rawLeads = await prisma.lead.findMany({
+  
+  const rawLeads: PrismaLead[] = await prisma.lead.findMany({
     orderBy: { createdAt: "desc" },
   });
 
   // Map Prisma Lead → UI Lead
-  const leads: Lead[] = rawLeads.map((lead: PrismaLead) => ({
+  const leads: Lead[] = rawLeads.map((lead) => ({
     ...lead,
     status: lead.status as Lead["status"],
     createdAt: new Date(lead.createdAt),
