@@ -34,7 +34,7 @@ export async function generateMetadata({
     };
   }
 
-  const introText = pest.intro.join(" ");
+  const introText = pest.intro?.join(" ") ?? "";
 
   return {
     title: `${pest.name} Control | Zap Ya Pests`,
@@ -116,16 +116,16 @@ export default async function PestPage({
           </h2>
           <div className="w-20 h-1 bg-blue-600 rounded" />
         </header>
-        
+
         {/* INTRO */}
         <div className="space-y-4 text-lg leading-relaxed">
-          {pest.intro.map((paragraph, i) => (
+          {pest.intro?.map((paragraph, i) => (
             <p key={i}>{paragraph}</p>
           ))}
         </div>
 
         {/* OVERVIEW */}
-        {pest.overview && (
+        {pest.overview?.length && (
           <div>
             <h2 className="text-2xl font-serif font-bold mb-4">
               About {pest.name}
@@ -139,7 +139,7 @@ export default async function PestPage({
         )}
 
         {/* SPECIES */}
-        {pest.species && (
+        {pest.species?.length && (
           <div>
             <h2 className="text-2xl font-serif font-bold mb-8">
               Common Species
@@ -184,7 +184,7 @@ export default async function PestPage({
 
                   {/* DESCRIPTION */}
                   <ul className="list-disc list-inside space-y-2 text-base md:text-lg">
-                    {species.description.map((line, j) => (
+                    {species.description?.map((line, j) => (
                       <li key={j}>{line}</li>
                     ))}
                   </ul>
@@ -196,7 +196,7 @@ export default async function PestPage({
         )}
 
         {/* WHY IT'S A PROBLEM */}
-        {pest.whyItsAProblem && (
+        {pest.whyItsAProblem?.length && (
           <div>
             <h2 className="text-2xl font-serif font-bold mb-4">
               Why {pest.name} Are a Problem
@@ -210,7 +210,7 @@ export default async function PestPage({
         )}
 
         {/* PREVENTION */}
-        {pest.prevention && (
+        {pest.prevention?.length && (
           <div>
             <h2 className="text-2xl font-serif font-bold mb-4">
               Prevention Tips
@@ -224,7 +224,7 @@ export default async function PestPage({
         )}
 
         {/* TREATMENT */}
-        {pest.treatment && (
+        {pest.treatment?.length && (
           <div>
             <h2 className="text-2xl font-serif font-bold mb-4">
               Professional Treatment
@@ -238,7 +238,7 @@ export default async function PestPage({
         )}
 
         {/* FAQ */}
-        {pest.faq && (
+        {pest.faq?.length && (
           <section className="mt-12">
             <h2 className="text-2xl font-serif font-bold mb-6">
               FAQ
@@ -256,27 +256,18 @@ export default async function PestPage({
             <p className="mb-6 text-lg">
               {pest.ctaText}
             </p>
-            {pest.ctaLink ? (
-              <Link
-                href={pest.ctaLink}
-                className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
-              >
-                Get a Quote
-              </Link>
-            ) : (
-              <Link
-                href="/contact" // fallback if ctaLink is missing
-                className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
-              >
-                Get a Quote
-              </Link>
-            )}
+            <Link
+              href={pest.ctaLink ?? "/contact"} // fallback if missing
+              className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
+            >
+              Get a Quote
+            </Link>
           </section>
         )}
       </section>
 
       {/* FAQ STRUCTURED DATA */}
-      {pest.faq && (
+      {pest.faq?.length && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
