@@ -256,12 +256,21 @@ export default async function PestPage({
             <p className="mb-6 text-lg">
               {pest.ctaText}
             </p>
-            <Link
-              href={pest.ctaLink}
-              className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
-            >
-              Get a Quote
-            </Link>
+            {pest.ctaLink ? (
+              <Link
+                href={pest.ctaLink}
+                className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
+              >
+                Get a Quote
+              </Link>
+            ) : (
+              <Link
+                href="/contact" // fallback if ctaLink is missing
+                className="inline-block bg-white text-green-700 font-semibold px-6 py-3 rounded-md hover:bg-slate-100 transition"
+              >
+                Get a Quote
+              </Link>
+            )}
           </section>
         )}
       </section>
