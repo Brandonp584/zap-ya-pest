@@ -1,7 +1,6 @@
 import { prisma } from "@/app/lib/prisma";
 import LeadsTable, { Lead } from "./LeadsTable";
 import { Roboto_Slab, Open_Sans } from "next/font/google";
-import { Lead as PrismaLead } from "@prisma/client";
 
 export const runtime = "nodejs";
 
@@ -17,13 +16,14 @@ const openSans = Open_Sans({
 });
 
 export default async function AdminLeadsPage() {
-  
-  const rawLeads: PrismaLead[] = await prisma.lead.findMany({
+  const rawLeads = await prisma.lead.findMany({
     orderBy: { createdAt: "desc" },
   });
 
-  // Map Prisma Lead → UI Lead
-  const leads: Lead[] = rawLeads.map((lead) => ({
+  // ✅ Infer Prisma Lead type safely
+  type PrismaLead = (typeof rawLeads)[number];
+
+  const leads: Lead[] = rawLeads.map((lead: PrismaLead) => ({
     ...lead,
     status: lead.status as Lead["status"],
     createdAt: new Date(lead.createdAt),
