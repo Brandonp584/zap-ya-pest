@@ -80,26 +80,44 @@ export default function ServicesPage() {
   return (
     <main className={`${openSans.className} min-h-screen bg-gray-50 text-black`}>
 
-      {/* ===== HERO ===== */}
-      <section className="bg-white border-b py-20 px-6 text-center">
+      {/* ===== HERO + TRUST BAR ===== */}
+      <section className="bg-slate-900 border-b border-slate-800 py-20 px-6 text-center text-white">
         <h1
           className={`${robotoSlab.className} text-4xl sm:text-5xl md:text-6xl font-bold mb-4`}
         >
-          Pest Control Services in Brisbane & Surrounding Areas
+          Pest Control Services in Moreton Bay & Surrounding Areas
         </h1>
-        <p className="max-w-3xl mx-auto text-lg">
+        <p className="max-w-3xl mx-auto text-lg mb-10">
           Professional, reliable pest control for homes and businesses across
-          the Moreton Bay Region and Sunshine Coast.
+          the Moreton Bay Region, Sunshine Coast and Bribie Island.
         </p>
-      </section>
 
-      {/* ===== TRUST BAR ===== */}
-      <section className="bg-green-600 py-10 text-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center px-6 font-semibold">
-          <div>✔ Licensed & Insured</div>
-          <div>🐾 Pet Safe</div>
-          <div>📍 Local Experts</div>
-          <div>💯 Satisfaction Guaranteed</div>
+        {/* Trust Bar */}
+        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center font-semibold">
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-4xl bg-white text-slate-900 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
+              ✔
+            </span>
+            <span>Licensed & Insured</span>
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-4xl bg-white text-slate-900 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
+              🐾
+            </span>
+            <span>Pet Safe</span>
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-4xl bg-white text-slate-900 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
+              📍
+            </span>
+            <span>Local Experts</span>
+          </div>
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-4xl bg-white text-slate-900 rounded-full w-16 h-16 flex items-center justify-center shadow-md">
+              💯
+            </span>
+            <span>Satisfaction Guaranteed</span>
+          </div>
         </div>
       </section>
 
@@ -176,18 +194,18 @@ export default function ServicesPage() {
       </section>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="bg-white border-t py-20 px-6 text-center">
+      <section className="bg-teal-600 border-t py-20 px-6 text-center text-white">
         <h2
           className={`${robotoSlab.className} text-3xl sm:text-4xl font-bold mb-4`}
         >
           Need Pest Control Today?
         </h2>
-        <p className="max-w-xl mx-auto mb-8">
+        <p className="max-w-xl mx-auto mb-8 text-teal-100">
           Get fast, professional pest control from trusted local experts.
         </p>
         <Link
           href="/contact"
-          className="inline-block bg-green-600 text-white px-8 py-4 rounded-md font-semibold hover:bg-green-700 transition shadow-sm"
+          className="inline-block bg-teal-500 text-white px-8 py-4 rounded-md font-semibold hover:bg-teal-700 transition shadow-sm"
         >
           Get a Free Quote
         </Link>
