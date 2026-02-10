@@ -1,5 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Roboto_Slab, Open_Sans } from "next/font/google";
+
+// Fonts
+const robotoSlab = Roboto_Slab({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+});
 
 export default function ServicesPage() {
   const services = [
@@ -23,12 +35,8 @@ export default function ServicesPage() {
       title: "Targeted Pest Solutions",
       subtitle: "Treat a single pest problem",
       description:
-        "Perfect if you are dealing with one specific pest such as cockroaches, ants, or spiders. Treatment is tailored to your exact issue.",
-      highlights: [
-        "Single pest focus",
-        "Fast response",
-        "Effective long-term control",
-      ],
+        "Perfect if you are dealing with one specific pest such as cockroaches, ants, or spiders.",
+      highlights: ["Single pest focus", "Fast response", "Effective long-term control"],
       price: "$220",
       period: "Service period varies",
       icon: "/icons/bug.svg",
@@ -37,12 +45,8 @@ export default function ServicesPage() {
       title: "Termite Inspections",
       subtitle: "Thorough property assessment",
       description:
-        "Detailed inspection for termites, borers, and fungal decay with a full written report and treatment recommendations.",
-      highlights: [
-        "Full written report",
-        "Expert inspector",
-        "Early detection saves money",
-      ],
+        "Detailed inspection for termites, borers, and fungal decay with a full written report.",
+      highlights: ["Full written report", "Expert inspector", "Early detection saves money"],
       price: "$266",
       period: "One-time inspection",
       icon: "/icons/termite.png",
@@ -51,12 +55,8 @@ export default function ServicesPage() {
       title: "General Pest Solutions",
       subtitle: "Not sure what you need?",
       description:
-        "Tell us your pest issue and we’ll create a tailored solution and quote specifically for your property.",
-      highlights: [
-        "Custom treatment plan",
-        "Free assessment",
-        "Local specialists",
-      ],
+        "Tell us your pest issue and we’ll create a tailored solution for your property.",
+      highlights: ["Custom treatment plan", "Free assessment", "Local specialists"],
       icon: "/icons/inspection.svg",
     },
     {
@@ -64,11 +64,7 @@ export default function ServicesPage() {
       subtitle: "Buying a new home?",
       description:
         "Protect your investment with a pre-purchase pest inspection before you buy.",
-      highlights: [
-        "Detailed property report",
-        "Identify hidden risks",
-        "Peace of mind before purchase",
-      ],
+      highlights: ["Detailed property report", "Identify hidden risks", "Peace of mind"],
       icon: "/icons/inspection.svg",
     },
     {
@@ -76,44 +72,43 @@ export default function ServicesPage() {
       subtitle: "For businesses & properties",
       description:
         "Tailored pest control programs for restaurants, offices, schools, and commercial buildings.",
-      highlights: [
-        "Business-safe treatments",
-        "Regular monitoring",
-        "Compliance friendly",
-      ],
+      highlights: ["Business-safe treatments", "Regular monitoring", "Compliance friendly"],
       icon: "/icons/office.svg",
     },
   ];
 
   return (
-    <main className="font-sans bg-slate-50 min-h-screen">
+    <main className={`${openSans.className} min-h-screen bg-gray-50 text-black`}>
 
       {/* ===== HERO ===== */}
-      <section className="bg-slate-900 text-white py-24 px-6 text-center">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4">
-          Pest Control Services in Brisbane & Nearby Areas
+      <section className="bg-white border-b py-20 px-6 text-center">
+        <h1
+          className={`${robotoSlab.className} text-4xl sm:text-5xl md:text-6xl font-bold mb-4`}
+        >
+          Pest Control Services in Brisbane & Surrounding Areas
         </h1>
-        <p className="max-w-3xl mx-auto text-lg text-slate-300">
-          Zap Ya Pests provides safe, professional, and reliable pest control for homes and businesses across the Moreton Bay Region and Sunshine Coast.
+        <p className="max-w-3xl mx-auto text-lg">
+          Professional, reliable pest control for homes and businesses across
+          the Moreton Bay Region and Sunshine Coast.
         </p>
       </section>
 
       {/* ===== TRUST BAR ===== */}
-      <section className="bg-green-600 text-white py-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center px-6">
-          <div className="font-semibold">✔ Licensed & Insured</div>
-          <div className="font-semibold">🐾 Pet Safe</div>
-          <div className="font-semibold">📍 Local Experts</div>
-          <div className="font-semibold">💯 Satisfaction Guaranteed</div>
+      <section className="bg-green-600 py-10 text-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center px-6 font-semibold">
+          <div>✔ Licensed & Insured</div>
+          <div>🐾 Pet Safe</div>
+          <div>📍 Local Experts</div>
+          <div>💯 Satisfaction Guaranteed</div>
         </div>
       </section>
 
       {/* ===== SERVICES GRID ===== */}
-      <section className="max-w-7xl mx-auto px-6 py-24 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+      <section className="max-w-7xl mx-auto px-6 py-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <div
             key={service.title}
-            className="bg-white border rounded-xl shadow-md hover:shadow-xl transition p-8 flex flex-col"
+            className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition p-8 flex flex-col"
           >
             {/* ICON */}
             <div className="flex justify-center mb-4">
@@ -127,22 +122,26 @@ export default function ServicesPage() {
             </div>
 
             {/* TITLE */}
-            <h2 className="text-2xl font-bold text-center mb-1">
+            <h2
+              className={`${robotoSlab.className} text-2xl font-bold text-center mb-1`}
+            >
               {service.title}
             </h2>
+
             <p className="text-green-700 text-center font-semibold mb-3">
               {service.subtitle}
             </p>
 
-            <p className="text-gray-600 text-center mb-4">
+            <p className="text-center mb-4">
               {service.description}
             </p>
 
             {/* HIGHLIGHTS */}
-            <ul className="text-sm text-gray-700 space-y-2 mb-4">
+            <ul className="text-sm space-y-2 mb-4">
               {service.highlights.map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span>✔</span> {item}
+                <li key={item} className="flex gap-2">
+                  <span className="text-green-600 font-bold">✔</span>
+                  {item}
                 </li>
               ))}
             </ul>
@@ -150,17 +149,17 @@ export default function ServicesPage() {
             {/* PRICE */}
             {service.price && (
               <div className="text-center mb-2">
-                <span className="text-green-600 font-bold text-xl">
+                <span className="text-green-700 font-bold text-xl">
                   {service.price}
                 </span>
-                <span className="text-gray-500 text-sm ml-2">
+                <span className="ml-2 text-sm">
                   {service.period}
                 </span>
               </div>
             )}
 
             {service.shortPlan && (
-              <p className="text-center text-sm text-gray-500 mb-4">
+              <p className="text-center text-sm mb-4">
                 {service.shortPlan}
               </p>
             )}
@@ -168,25 +167,27 @@ export default function ServicesPage() {
             {/* CTA */}
             <Link
               href="/contact"
-              className="mt-auto block text-center bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md"
+              className="mt-auto block text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-md transition"
             >
-              BOOK A TIME NOW
+              Book a Free Quote
             </Link>
           </div>
         ))}
       </section>
 
       {/* ===== FINAL CTA ===== */}
-      <section className="bg-green-600 text-white py-24 text-center px-6">
-        <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
+      <section className="bg-white border-t py-20 px-6 text-center">
+        <h2
+          className={`${robotoSlab.className} text-3xl sm:text-4xl font-bold mb-4`}
+        >
           Need Pest Control Today?
         </h2>
-        <p className="max-w-xl mx-auto mb-8 text-green-100">
-          Contact Zap Ya Pests for fast, reliable, and professional pest control solutions.
+        <p className="max-w-xl mx-auto mb-8">
+          Get fast, professional pest control from trusted local experts.
         </p>
         <Link
           href="/contact"
-          className="bg-white text-green-700 px-8 py-4 rounded-md font-semibold hover:opacity-90 transition shadow-md"
+          className="inline-block bg-green-600 text-white px-8 py-4 rounded-md font-semibold hover:bg-green-700 transition shadow-sm"
         >
           Get a Free Quote
         </Link>
