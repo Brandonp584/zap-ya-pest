@@ -7,6 +7,8 @@ import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [pestsOpen, setPestsOpen] = useState(false);
+  const [areasOpen, setAreasOpen] = useState(false);
   const [mobilePestsOpen, setMobilePestsOpen] = useState(false);
   const [mobileAreasOpen, setMobileAreasOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -42,77 +44,79 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop & Tablet Nav */}
         <div className="hidden md:flex items-center gap-8 text-slate-700 font-medium">
           <Link href="/" className="hover:text-green-600 transition">
             Home
           </Link>
+
           <Link href="/services" className="hover:text-green-600 transition">
             Services
           </Link>
 
           {/* Pests Dropdown */}
-          <div className="relative group">
-            <Link href="/pests" className="hover:text-green-600 font-medium">
-              Pests ▾
-            </Link>
-            <div
-              className="absolute left-0 top-full mt-2 z-50
-                         opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                         transition-all duration-300 ease-out
-                         transform -translate-y-2 group-hover:translate-y-0"
+          <div className="relative">
+            <button
+              onClick={() => setPestsOpen(!pestsOpen)}
+              className="hover:text-green-600 font-medium transition"
             >
-              <div className="bg-white border rounded-lg shadow-lg p-4
-                              grid grid-cols-2 md:grid-cols-3 gap-4 min-w-[22rem] max-w-[56rem]">
+              Pests ▾
+            </button>
+
+            {pestsOpen && (
+              <div className="absolute left-0 top-full mt-2 z-50 bg-white border rounded-lg shadow-lg p-4 grid grid-cols-2 md:grid-cols-3 gap-4 min-w-[22rem] max-w-[56rem]">
                 {pests.map((pest: Pest) => (
                   <Link
                     key={pest.slug}
                     href={`/pests/${pest.slug}`}
+                    onClick={() => setPestsOpen(false)} // closes menu on click
                     className="block px-2 py-1 hover:bg-gray-100 text-slate-700 rounded whitespace-nowrap transition"
                   >
                     {pest.name}
                   </Link>
                 ))}
               </div>
-            </div>
+            )}
           </div>
 
           <Link href="/about" className="hover:text-green-600 transition">
             About
           </Link>
 
-          {/* Areas Dropdown */}
-          <div className="relative group">
-            <button className="hover:text-green-600 transition font-medium">
+          {/* Locations Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setAreasOpen(!areasOpen)}
+              className="hover:text-green-600 font-medium transition"
+            >
               Locations ▾
             </button>
-            <div
-              className="absolute left-0 top-full mt-2 w-56 z-50
-                         opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                         transition-all duration-300 ease-out
-                         transform -translate-y-2 group-hover:translate-y-0"
-            >
-              <div className="bg-white border border-gray-200 rounded-lg">
+
+            {areasOpen && (
+              <div className="absolute left-0 top-full mt-2 w-56 z-50 bg-white border border-gray-200 rounded-lg">
                 <Link
                   href="/areas/moreton-bay"
+                  onClick={() => setAreasOpen(false)}
                   className="block px-4 py-2 hover:bg-gray-100 text-slate-700 transition"
                 >
                   Moreton Bay Region
                 </Link>
                 <Link
                   href="/areas/sunshine-coast"
+                  onClick={() => setAreasOpen(false)}
                   className="block px-4 py-2 hover:bg-gray-100 text-slate-700 transition"
                 >
                   Sunshine Coast
                 </Link>
                 <Link
                   href="/areas/bribie-island"
+                  onClick={() => setAreasOpen(false)}
                   className="block px-4 py-2 hover:bg-gray-100 text-slate-700 transition"
                 >
                   Bribie Island
                 </Link>
               </div>
-            </div>
+            )}
           </div>
 
           <Link
