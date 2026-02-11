@@ -4,10 +4,26 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Log environment variables at runtime for debugging
+console.log("RESEND_API_KEY:", !!process.env.RESEND_API_KEY);
+console.log("CONTACT_RECEIVER:", !!process.env.CONTACT_RECEIVER);
+
+let resend: Resend | null = null;
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY);
+} else {
+  console.error("RESEND_API_KEY is undefined. Did you set it in Netlify?");
+}
 
 export async function POST(req: Request) {
   try {
+    if (!resend) {
+      return NextResponse.json(
+        { error: "Server misconfigured: missing Resend API key" },
+        { status: 500 }
+      );
+    }
+
     const body = await req.json();
     const { name, email, phone, message, company } = body;
 
@@ -35,10 +51,20 @@ export async function POST(req: Request) {
       },
     });
 
-    // 4. Send email via Resend
+    // 4. Check CONTACT_RECEIVER before sending email
+    const receiver = process.env.CONTACT_RECEIVER;
+    if (!receiver) {
+      console.error("CONTACT_RECEIVER is undefined. Did you set it in Netlify?");
+      return NextResponse.json(
+        { error: "Server misconfigured: missing contact receiver" },
+        { status: 500 }
+      );
+    }
+
+    // 5. Send email via Resend
     await resend.emails.send({
       from: "Website <onboarding@resend.dev>",
-      to: process.env.CONTACT_RECEIVER!,
+      to: receiver,
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
